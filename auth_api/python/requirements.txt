@@ -1,1 +1,9 @@
 Flask
+pip install pyjwt
+pip install boto3
+haslib
+jwt
+boto3
+abort
+os
+mysql.connector

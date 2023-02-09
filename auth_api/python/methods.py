@@ -29,7 +29,6 @@ class Token:
         select_stmnt = "SELECT * FROM users where username = %(user)s"
         cursor.execute(select_stmnt, {'user': username})
         token_data = cursor.fetchone()
-
         if len(token_data) > 0:
             verify_hashh = password + token_data[2]
             hash_token = hashlib.sha512(verify_hashh.encode('utf-8')).hexdigest()
@@ -40,4 +39,11 @@ class Token:
 class Restricted:
 
     def access_data(self, authorization):
-        return 'test'
+        decoded_token = jwt.decode(authorization, SECRET_KEY, algorithms=['HS256'])
+        cursor = conn.cursor()
+        select_stmnt = "SELECT role FROM users where role = %(role1)s"
+        cursor.execute(select_stmnt, {'role1': decoded_token['role']})
+        role_token = cursor.fetchone()
+        if role_token:
+            return "You are under protected data"
+        abort(403)

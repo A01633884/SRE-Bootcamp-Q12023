@@ -32,11 +32,11 @@ def url_login():
 
 
 # # e.g. http://127.0.0.1:8000/protected
-@app.route("/protected")
+@app.route("/protected", methods=['GET', 'POST'])
 def url_protected():
     auth_token = request.headers.get('Authorization')
     res = {
-        "data": protected.access_data(auth_token)
+        "data": protected.access_data(auth_token[7:])
     }
     return jsonify(res)
 
