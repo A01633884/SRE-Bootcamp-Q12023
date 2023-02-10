@@ -1,6 +1,4 @@
 import mysql.connector
-import boto3
-import os
 import jwt
 import hashlib
 from flask import abort
@@ -11,9 +9,6 @@ USER = "secret"
 REGION = "us-east-1"
 DBNAME = "bootcamp_tht"
 SECRET_KEY = "my2w7wjd7yXF64FIADfJxNs1oupTGAuW"
-os.environ['LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN'] = '1'
-session = boto3.Session(profile_name='default')
-client = session.client('rds')
 
 
 try:
